@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.java.mapper.EmployeeMapper">
+    <resultMap id="DEMap" type="Employee">
+        <id property="id" column="id"/>
+        <result property="lastName" column="lastname"/>
+        <result property="email" column="email"/>
+        <result property="gender" column="gender"/>
+        <result property="departmentId" column="departmentid"></result>
+        <result property="birth" column="birth"/>
+        <association property="department" javaType="Department">
+            <id property="departmentId" column="departmentid"></id>
+            <result property="departmentName" column="departmentname"></result>
+        </association>
+    </resultMap>
+    <select id="getAll" resultMap="DEMap">
+        select e.id,e.lastname,e.email,e.gender,d.departmentname,e.birth,d.departmentid from
+                     employee e inner join department d where e.departmentid = d.departmentid;
+    </select>
+    <select id="getEmpByLastname" resultMap="DEMap" parameterType="String">
+        select e.id,e.lastname,e.email,e.gender,d.departmentname,e.birth,d.departmentid from
+                    employee e inner join department d
+        <where>
+            <if test="lastname != null">
+                lastname like concat("%",#{lastName},"%")
+            </if>
+        </where>
+    </select>
+    <select id="getOne" parameterType="int" resultType="Employee">
+        select * from employee where id = #{id};
+    </select>
+
+    <insert id="addEmp" parameterType="Employee">
+        insert into employee (lastname,email,gender,departmentid,birth)values
+                        (#{lastName},#{email},#{gender},#{departmentId},#{birth});
+    </insert>
+    <update id="updateEmp" parameterType="Employee">
+        update employee set lastname = #{lastName},email = #{email},gender = #{gender},
+                            departmentid = #{departmentId},birth = #{birth} where id = #{id};
+    </update>
+
+    <delete id="deleteEmp" >
+        delete from employee where id = #{id};
+    </delete>
+
+</mapper>
