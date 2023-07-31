@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.java.mapper.MyUserMapper">
+    <select id="getMyUser" parameterType="MyUser" resultType="MyUser">
+        select id, uname,pword from myuser where uname = #{username} and pword = #{password};
+    </select>
+    <insert id="add" parameterType="MyUser">
+        insert into myuser values (null,#{uname},#{pword});
+    </insert>
+    <select id="getAllUser" resultType="MyUser">
+        select id,uname from myuser;
+    </select>
+    <select id="getOne" resultType="MyUser">
+        select * from myuser where id = #{id};
+    </select>
+    <update id="upUser" parameterType="MyUser">
+        update myuser set uname = #{uname}, pword = #{pword} where id = #{id};
+    </update>
+    <delete id="delUser">
+        delete from myuser where id = #{id};
+    </delete>
+</mapper>

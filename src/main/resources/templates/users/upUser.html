@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>upUser</title>
+  <!-- Bootstrap core CSS -->
+  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+  <style type="text/css">
+    /* Chart.js */
+
+    @-webkit-keyframes chartjs-render-animation {
+      from {
+        opacity: 0.99
+      }
+      to {
+        opacity: 1
+      }
+    }
+
+    @keyframes chartjs-render-animation {
+      from {
+        opacity: 0.99
+      }
+      to {
+        opacity: 1
+      }
+    }
+
+    .chartjs-render-monitor {
+      -webkit-animation: chartjs-render-animation 0.001s;
+      animation: chartjs-render-animation 0.001s;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container-fluid">
+  <b class="row">
+    <main role="main"class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+      <form th:action="@{/updateUser}" method="post">
+        <div class="form-group">
+          <input type="hidden" name="id" th:value="${user.getId()}">
+          <label>UserName</label>
+          <input type="text" name="uname" class="form-control" th:value="${user.getUname()}">
+        </div>
+        <div class="form-group">
+          <label>PassWord</label>
+          <input type="password" name="pword" class="form-control" th:value="${user.getPword()}">
+        </div>
+        <button type="reset" class="btn btn-primary">重置</button>
+        <button type="submit" class="btn btn-primary">确认修改</button>
+        <button type="button" class="btn btn-primary"><a style="color: white;text-decoration: none" th:href="@{/deleteUser/}+${session.userId}">删除用户</a></button>
+      </form>
+    </main>
+  </b>
+</div>
+</body>
+</html>
